@@ -1,0 +1,42 @@
+/* Styles */
+
+:root {
+  --main-font: "Yusei Magic", sans-serif;
+  --display-font: "Amatic SC", cursive;
+  --blue: #2f4d8a;
+  --salmon: rgb(255 171 145 / 68%);
+}
+
+body {
+  background-image: url("/assets/background.png");
+  background-size: 180vw;
+}
+
+p,
+h1 {
+  color: var(--blue);
+  background: var(--salmon);
+}
+
+h1 {
+  font-family: var(--display-font);
+  font-size: 100px;
+  font-weight: bold;
+}
+
+p {
+  font-family: var(--main-font);
+  text-align: right;
+}
+
+img {
+  padding: 20px;
+  background-color: var(--salmon);
+  border-radius: 20px;
+  width: 80%;
+}
+
+.container__center {
+  display: inline-block;
+  text-align: center;
+}
