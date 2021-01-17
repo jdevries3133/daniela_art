@@ -1,5 +1,11 @@
 /* Styles */
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 :root {
   --main-font: "Yusei Magic", sans-serif;
   --display-font: "Amatic SC", cursive;
@@ -26,17 +32,19 @@ h1 {
 
 p {
   font-family: var(--main-font);
+  font-size: 16px;
   text-align: right;
 }
 
 img {
   padding: 20px;
-  background-color: var(--salmon);
   border-radius: 20px;
   width: 80%;
+  max-width: 600px;
 }
 
 .container__center {
   display: inline-block;
   text-align: center;
+  width: 100%;
 }
