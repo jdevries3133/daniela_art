@@ -18,11 +18,9 @@ body {
   background-size: 180vw;
 }
 
-p,
-h1,
-h3 {
-  color: var(--blue);
-  background: var(--salmon);
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
 h1 {
@@ -31,10 +29,13 @@ h1 {
   font-weight: bold;
 }
 
+p {
+  font-size: 16px;
+}
+
 p,
 h3 {
   font-family: var(--main-font);
-  font-size: 16px;
   text-align: right;
 }
 
@@ -45,15 +46,18 @@ h3 {
 img {
   display: inline-grid;
   width: 100%;
-  max-width: 600px;
 }
 
-.main__image__container {
-  display: grid;
-  grid-template-columns: 30% 30% 30%;
-  row-gap: 0;
-  justify-content: center;
-  column-gap: 0;
-  overflow-x: clip;
+/* GENERAL PURPOSE CLASSES */
+
+.banner {
+  display: block;
   width: 100%;
+  color: var(--blue);
+  background: var(--salmon);
+  margin-bottom: 1rem;
+}
+
+.margin-0 {
+  margin: 0 !important;
 }

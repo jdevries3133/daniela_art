@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/home.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
@@ -13,23 +14,41 @@
   </head>
   <body>
     <header>
-      <h1>Art is Life</h1>
-      <br />
-      <h3>Original artwork by Daniela DeVries</h3>
+      <nav class="banner">
+        <a href="/">
+          <h1>Art is Life</h1>
+        </a>
+        <div class="nav__buttons">
+          <button>
+            <h4>Location</h4>
+          </button>
+          <button>
+            <h4>Location</h4>
+          </button>
+          <button>
+            <h4>Location</h4>
+          </button>
+          <button>
+            <h4>Location</h4>
+          </button>
+        </div>
+      </nav>
+      <h3 class="banner">Original artwork by Daniela DeVries</h3>
     </header>
-
     <main>
-      <div class="main__image__container">
-        <img src="assets/sky.jpg" />
-        <img src="assets/hydraengas.jpg" />
-        <img src="assets/flower.jpg" />
-        <img src="assets/rose.jpg" />
-        <img src="assets/leaf.jpg" />
-        <img class="image__cropped leaf" src="assets/hike.jpg" />
+      <div class="main__grid__container">
+        <article class="main__grid">
+          <img src="/assets/sky.jpg" />
+          <img src="/assets/hydraengas.jpg" />
+          <img src="/assets/flower.jpg" />
+          <img src="/assets/rose.jpg" />
+          <img src="/assets/leaf.jpg" />
+          <img class="image__cropped leaf" src="assets/hike.jpg" />
+        </article>
       </div>
     </main>
 
-    <footer>
+    <footer class="margin-0 banner">
       <p>©2021 Daniela DeVries. All rights reserved.</p>
       <p><a href="mailto:jtddv@aol.com">Contact Me!</a></p>
     </footer>
