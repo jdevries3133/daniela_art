@@ -10,7 +10,7 @@
   --main-font: "Yusei Magic", sans-serif;
   --display-font: "Amatic SC", cursive;
   --blue: #2f4d8a;
-  --salmon: rgb(255 171 145 / 68%);
+  --salmon: rgb(255 171 145 / 40%);
 }
 
 body {
@@ -19,7 +19,8 @@ body {
 }
 
 p,
-h1 {
+h1,
+h3 {
   color: var(--blue);
   background: var(--salmon);
 }
@@ -30,21 +31,29 @@ h1 {
   font-weight: bold;
 }
 
-p {
+p,
+h3 {
   font-family: var(--main-font);
   font-size: 16px;
   text-align: right;
 }
 
+h3 {
+  font-size: 24px;
+}
+
 img {
-  padding: 20px;
-  border-radius: 20px;
-  width: 80%;
+  display: inline-grid;
+  width: 100%;
   max-width: 600px;
 }
 
-.container__center {
-  display: inline-block;
-  text-align: center;
+.main__image__container {
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  row-gap: 0;
+  justify-content: center;
+  column-gap: 0;
+  overflow-x: clip;
   width: 100%;
 }
