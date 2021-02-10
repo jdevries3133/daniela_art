@@ -38,5 +38,7 @@
     max-height: 600px;
     object-fit: cover;
     margin-bottom: 1rem;
+    border: 2px solid white;
+    border-radius: 2px;
   }
 }

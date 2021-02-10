@@ -11,6 +11,7 @@
   --display-font: "Amatic SC", cursive;
   --blue: #2f4d8a;
   --salmon: rgb(255 171 145 / 40%);
+  --salmon-opaque: #ffab91;
 }
 
 body {
@@ -43,6 +44,26 @@ h3 {
   font-size: 24px;
 }
 
+button {
+  padding: 10px;
+  font-size: 20px;
+  background-color: var(--blue);
+  border-radius: 5px;
+  margin-bottom: 5px;
+  color: white;
+  font-family: var(--main-font);
+}
+
+.nav__buttons__toggle_break {
+  display: none;
+}
+
+@media (max-width: 485px) {
+  .nav__buttons__toggle_break {
+    display: block;
+  }
+}
+
 img {
   display: inline-grid;
   width: 100%;
@@ -60,4 +81,36 @@ img {
 
 .margin-0 {
   margin: 0 !important;
+}
+
+/* MOBILE NAV */
+
+@media (min-width: 900px) {
+  .nav__buttons {
+    background-color: var(--salmon-opaque);
+    border-bottom-left-radius: 5px;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 5px;
+    margin-right: 5px;
+    display: inline-block;
+    align-self: top;
+  }
+
+  .header__title {
+    align-self: bottom;
+    display: inline-block;
+  }
+}
+
+@media (max-width: 900px) {
+  button {
+    font-size: 16px;
+    padding: 5px;
+  }
+  .nav__buttons__toggle_break {
+    display: show;
+  }
 }
