@@ -6,7 +6,6 @@ resource "kubernetes_namespace" "danart" {
 
 variable "service_port" {
   type = number
-  default = 8080
 }
 
 resource "kubernetes_deployment" "danart" {
@@ -53,7 +52,7 @@ resource "kubernetes_service" "danart" {
     type             = "LoadBalancer"
     session_affinity = "ClientIP"
     port {
-      port = var.service_port
+      port        = var.service_port
       target_port = 80
     }
   }
