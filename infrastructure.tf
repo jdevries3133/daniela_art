@@ -1,3 +1,24 @@
+terraform {
+
+  backend "s3" {
+    bucket = "my-sites-terraform-remote-state"
+    key    = "daniela_art"
+    region = "us-east-2"
+  }
+
+  required_providers {
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = ">= 2.7.1"
+    }
+
+  }
+}
+
+provider "kubernetes" {
+  config_path = "~/.kube/prod_config"
+}
+
 resource "kubernetes_namespace" "danart" {
   metadata {
     name = "daniela-art"
@@ -15,7 +36,7 @@ resource "kubernetes_deployment" "danart" {
   }
 
   spec {
-    replicas = 2
+    replicas = 1
 
     selector {
       match_labels = {
@@ -32,7 +53,7 @@ resource "kubernetes_deployment" "danart" {
       spec {
         container {
           name  = "danart"
-          image = "jdevries3133/danart:0.0.1"
+          image = "jdevries3133/danart:0.0.2"
         }
       }
     }
@@ -57,3 +78,5 @@ resource "kubernetes_service" "danart" {
     }
   }
 }
+
+// TODO: ingress controller config

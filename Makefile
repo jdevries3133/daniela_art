@@ -14,7 +14,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-# --- Shortcuts for building and shipping the docker container. --- 
+# --- Shortcuts for building and shipping the docker container. ---
 #
 # `push` is the only rule with dependencies (clean -> build -> test).
 # Building the container takes a long time, so we don't necessarily want
@@ -32,7 +32,7 @@ CONTAINER=$(DOCKER_ACCOUNT)/$(CONTAINER_NAME):$(TAG)
 
 
 build:
-	docker build -t $(CONTAINER) .
+	docker buildx build --platform linux/amd64 --load -t $(CONTAINER) .
 
 
 push: clean build
