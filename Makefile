@@ -25,22 +25,22 @@
 DOCKER_ACCOUNT=jdevries3133
 CONTAINER_NAME=danart
 
-TAG?=latest
+TAG?=$(shell cat VERSION)
 
 # assuming the use of Docker hub, these constants need not be changed
 CONTAINER=$(DOCKER_ACCOUNT)/$(CONTAINER_NAME):$(TAG)
 
 
 build:
-	docker buildx build --platform linux/amd64 --load -t $(CONTAINER) .
+	docker build -t $(CONTAINER) .
 
 
 push: clean build
-	docker push $(CONTAINER)
+	docker buildx build --platform linux/amd64 --push -t $(CONTAINER) .
 
 
 run:
-	docker run $(CONTAINER)
+	docker run -p 8000:80 $(CONTAINER)
 
 
 # this removes *all* images containing CONTAINER_NAME, so there can be

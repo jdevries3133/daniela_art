@@ -9,7 +9,7 @@ terraform {
   required_providers {
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = ">= 2.7.1"
+      version = ">= 2.8.0"
     }
 
   }
@@ -25,14 +25,11 @@ resource "kubernetes_namespace" "danart" {
   }
 }
 
-variable "service_port" {
-  type = number
-}
 
 resource "kubernetes_deployment" "danart" {
   metadata {
     name      = "danart-deployment"
-    namespace = kubernetes_namespace.danart.metadata.0.name
+    namespace = kubernetes_namespace.danart.metadata[0].name
   }
 
   spec {
@@ -53,7 +50,7 @@ resource "kubernetes_deployment" "danart" {
       spec {
         container {
           name  = "danart"
-          image = "jdevries3133/danart:0.0.2"
+          image = "jdevries3133/danart:0.0.3"
         }
       }
     }
@@ -63,20 +60,45 @@ resource "kubernetes_deployment" "danart" {
 resource "kubernetes_service" "danart" {
   metadata {
     name      = "danart-service"
-    namespace = kubernetes_namespace.danart.metadata.0.name
+    namespace = "daniela-art"
   }
 
   spec {
     selector = {
-      app = kubernetes_deployment.danart.spec.0.template.0.metadata.0.labels.app
+      app = "danart"
     }
-    type             = "LoadBalancer"
     session_affinity = "ClientIP"
     port {
-      port        = var.service_port
+      port        = 8080
       target_port = 80
     }
   }
 }
 
-// TODO: ingress controller config
+resource "kubernetes_ingress_v1" "danart_ingress" {
+  metadata {
+    name = "danart-ingress"
+    namespace = "daniela-art"
+  }
+
+  spec {
+    ingress_class_name = "public"
+    rule {
+      http {
+        path {
+          path = "/"
+          path_type = "Prefix"
+          backend {
+            service {
+              name = "danart-service"
+              port {
+                number = 8080
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
