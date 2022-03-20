@@ -29,14 +29,13 @@
   column-gap: 0;
 }
 
+.main__grid > img {
+  height: 400px;
+  object-fit: cover;
+}
+
 @media (max-width: 700px) {
   .main__grid {
     display: block;
-  }
-
-  .main__grid > img {
-    max-height: 600px;
-    object-fit: cover;
-    margin-bottom: 1rem;
   }
 }
