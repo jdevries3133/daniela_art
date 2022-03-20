@@ -25,7 +25,7 @@
 DOCKER_ACCOUNT=jdevries3133
 CONTAINER_NAME=danart
 
-TAG?=$(shell cat VERSION)
+TAG?=$(shell git describe --tags)
 
 # assuming the use of Docker hub, these constants need not be changed
 CONTAINER=$(DOCKER_ACCOUNT)/$(CONTAINER_NAME):$(TAG)
@@ -40,7 +40,7 @@ push: clean build
 
 
 run:
-	docker run -p 8000:80 $(CONTAINER)
+	docker run -d -p 8000:80 -v $(PWD)/public:/usr/share/nginx/html $(CONTAINER)
 
 
 # this removes *all* images containing CONTAINER_NAME, so there can be

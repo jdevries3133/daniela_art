@@ -16,7 +16,7 @@ terraform {
 }
 
 provider "kubernetes" {
-  config_path = "~/.kube/prod_config"
+  config_path = "~/.kube/config"
 }
 
 resource "kubernetes_namespace" "danart" {
@@ -25,6 +25,9 @@ resource "kubernetes_namespace" "danart" {
   }
 }
 
+data "external" "git_describe" {
+  program = ["sh", "scripts/git_describe.sh"]
+}
 
 resource "kubernetes_deployment" "danart" {
   metadata {
@@ -50,7 +53,7 @@ resource "kubernetes_deployment" "danart" {
       spec {
         container {
           name  = "danart"
-          image = "jdevries3133/danart:0.0.3"
+          image = "jdevries3133/danart:${data.external.git_describe.result.output}"
         }
       }
     }
@@ -60,7 +63,7 @@ resource "kubernetes_deployment" "danart" {
 resource "kubernetes_service" "danart" {
   metadata {
     name      = "danart-service"
-    namespace = "daniela-art"
+    namespace = kubernetes_namespace.danart.metadata[0].name
   }
 
   spec {
@@ -77,22 +80,26 @@ resource "kubernetes_service" "danart" {
 
 resource "kubernetes_ingress_v1" "danart_ingress" {
   metadata {
-    name = "danart-ingress"
-    namespace = "daniela-art"
+    name      = "danart-ingress"
+    namespace = kubernetes_namespace.danart.metadata[0].name
   }
 
   spec {
     ingress_class_name = "public"
+    tls {
+      hosts = ["danart.us"]
+    }
     rule {
+      host = "danart.us"
       http {
         path {
-          path = "/"
+          path      = "/"
           path_type = "Prefix"
           backend {
             service {
-              name = "danart-service"
+              name = kubernetes_service.danart.metadata.0.name
               port {
-                number = 8080
+                number = kubernetes_service.danart.spec.0.port.0.port
               }
             }
           }
