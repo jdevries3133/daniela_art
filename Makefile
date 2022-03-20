@@ -31,25 +31,22 @@ TAG?=$(shell git describe --tags)
 CONTAINER=$(DOCKER_ACCOUNT)/$(CONTAINER_NAME):$(TAG)
 
 
+.PHONY: run
+run: build
+	docker run -d -p 8000:80 -v $(PWD)/public:/usr/share/nginx/html $(CONTAINER)
+
+
+.PHONY: build
 build:
 	docker build -t $(CONTAINER) .
 
 
-push: clean build
+.PHONY: push
+push:
 	docker buildx build --platform linux/amd64 --push -t $(CONTAINER) .
 
 
-run:
-	docker run -d -p 8000:80 -v $(PWD)/public:/usr/share/nginx/html $(CONTAINER)
-
-
-# this removes *all* images containing CONTAINER_NAME, so there can be
-# destructive side-effects
-clean:
-	# remove application container(s)
-	docker ps --all | grep $(CONTAINER_NAME) | cut -c 1-15 | xargs docker stop
-	docker ps --all | grep $(CONTAINER_NAME) | cut -c 1-15 | xargs docker rm
-
-
-# all rules are phony
-.PHONY: clean push build
+.PHONY: deploy
+deploy: push
+	terraform init
+	terraform apply
