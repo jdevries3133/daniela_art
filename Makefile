@@ -48,5 +48,4 @@ push:
 
 .PHONY: deploy
 deploy: push
-	terraform init
-	terraform apply
+	terraform apply -auto-approve
