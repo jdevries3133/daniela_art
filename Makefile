@@ -48,4 +48,7 @@ push:
 
 .PHONY: deploy
 deploy: push
+ifdef CI
+	terraform init -input=false
+endif
 	terraform apply -auto-approve
