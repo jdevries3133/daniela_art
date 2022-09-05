@@ -32,7 +32,7 @@ data "external" "git_describe" {
 
 module "container-deployment" {
   source  = "jdevries3133/container-deployment/kubernetes"
-  version = "0.2.0"
+  version = "0.3.0"
 
   app_name = "danart"
   container = "jdevries3133/danart:${data.external.git_describe.result.output}"
